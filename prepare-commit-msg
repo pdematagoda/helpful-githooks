@@ -14,8 +14,8 @@ then
     hint=$(cat "$COMMIT_MSG_FILE")
     ticket="${BASH_REMATCH[-2]}"
     echo "${ticket} - <Summary>" > $COMMIT_MSG_FILE
-	echo "" >> $COMMIT_MSG_FILE
-	echo "<Description>" >> $COMMIT_MSG_FILE
+    echo "" >> $COMMIT_MSG_FILE
+    echo "<Description>" >> $COMMIT_MSG_FILE
     echo "${hint}" >> $COMMIT_MSG_FILE
   fi
 fi
