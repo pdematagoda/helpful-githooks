@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Commit message template generator that looks at the branch you're currently on.
+# Kudos to https://mincong.io/2019/07/23/prepare-commit-message-using-git-hook/
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+if [[ -z "$COMMIT_SOURCE" ]]
+then
+  ref=$(git rev-parse --abbrev-ref HEAD)
+  if [[ $ref =~ ^.*((DEV)-[0-9]+).* ]]
+  then
+    hint=$(cat "$COMMIT_MSG_FILE")
+    ticket="${BASH_REMATCH[-2]}"
+    echo "${ticket} - <Summary>" > $COMMIT_MSG_FILE
+	echo "" >> $COMMIT_MSG_FILE
+	echo "<Description>" >> $COMMIT_MSG_FILE
+    echo "${hint}" >> $COMMIT_MSG_FILE
+  fi
+fi
